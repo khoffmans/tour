@@ -2,141 +2,126 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>De Limburger Tourspel — Waardering 2026</title>
 <style>
   :root{
-    --maillot: #fde910;
-    --asfalt: #1a1a1d;
-    --asfalt-2: #242428;
-    --wit: #f5f4f0;
-    --grijs: #8c8c92;
-    --groen: #1f7a4d;
-    --rood: #c23b3b;
-    --lijn: #34343a;
-    --font-display: 'Oswald', 'Arial Narrow', sans-serif;
-    --font-body: 'Inter', system-ui, sans-serif;
+    --maillot:#fde910; --asfalt:#1a1a1d; --asfalt-2:#242428;
+    --wit:#f5f4f0; --grijs:#8c8c92; --groen:#1f7a4d; --rood:#c23b3b; --lijn:#34343a;
   }
   *{box-sizing:border-box;}
-  body{margin:0;background:var(--asfalt);color:var(--wit);font-family:var(--font-body);min-height:100vh;}
+  body{margin:0;background:var(--asfalt);color:var(--wit);font-family:system-ui,sans-serif;min-height:100vh;}
   .topband{background:repeating-linear-gradient(45deg,var(--maillot),var(--maillot) 18px,#e8d400 18px,#e8d400 36px);height:6px;}
-  header{padding:28px 24px 18px;display:flex;align-items:flex-end;justify-content:space-between;border-bottom:1px solid var(--lijn);flex-wrap:wrap;gap:12px;}
-  h1{font-family:var(--font-display);font-weight:700;font-size:2.1rem;letter-spacing:.5px;margin:0;text-transform:uppercase;}
-  h1 span{color:var(--maillot);}
-  .sub{color:var(--grijs);font-size:.85rem;margin-top:4px;}
-  .userbar{display:flex;align-items:center;gap:10px;font-size:.85rem;}
-  .pill{background:var(--asfalt-2);border:1px solid var(--lijn);border-radius:999px;padding:6px 14px;color:var(--wit);}
-  .pill b{color:var(--maillot);}
-  button{font-family:var(--font-body);cursor:pointer;border:none;border-radius:6px;font-size:.85rem;font-weight:600;padding:8px 14px;}
+
+  /* BUTTONS */
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:6px;font-size:.85rem;font-weight:600;padding:8px 14px;}
   .btn-primary{background:var(--maillot);color:var(--asfalt);}
-  .btn-primary:hover{background:#fff200;}
+  .btn-primary:active{background:#ffe000;}
   .btn-ghost{background:transparent;color:var(--wit);border:1px solid var(--lijn);}
-  .btn-ghost:hover{border-color:var(--grijs);}
-  .btn-ghost:disabled,.btn-primary:disabled{opacity:.4;cursor:not-allowed;}
+  .btn-ghost:active{border-color:var(--grijs);}
 
-  /* SETUP SCHERM */
-  #setup{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;gap:20px;padding:30px;text-align:center;}
-  #setup h2{font-family:var(--font-display);text-transform:uppercase;font-size:1.6rem;margin:0;}
-  #setup p{color:var(--grijs);max-width:500px;margin:0;line-height:1.6;}
-  #setup input{background:var(--asfalt-2);border:1px solid var(--lijn);color:var(--wit);padding:12px 16px;border-radius:6px;font-size:.9rem;width:100%;max-width:480px;}
-  .setup-box{background:var(--asfalt-2);border:1px solid var(--lijn);border-radius:10px;padding:24px;max-width:520px;width:100%;text-align:left;}
-  .setup-box h3{font-family:var(--font-display);text-transform:uppercase;font-size:.85rem;letter-spacing:.5px;color:var(--maillot);margin:0 0 12px;}
-  .setup-step{display:flex;gap:10px;margin-bottom:10px;font-size:.85rem;color:var(--grijs);line-height:1.5;}
-  .setup-step b{color:var(--wit);}
-  .step-num{background:var(--maillot);color:var(--asfalt);font-weight:800;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;margin-top:1px;}
-  #setupErr{color:var(--rood);font-size:.85rem;min-height:1.2em;}
-
-  /* LOGIN */
-  #login{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;gap:18px;padding:20px;text-align:center;}
-  #login h2{font-family:var(--font-display);text-transform:uppercase;font-size:1.6rem;margin:0;}
-  #login p{color:var(--grijs);max-width:360px;margin:0;}
-  #login input{background:var(--asfalt-2);border:1px solid var(--lijn);color:var(--wit);padding:12px 16px;border-radius:6px;font-size:1rem;width:240px;text-align:center;}
-  #loginErr{color:var(--rood);font-size:.85rem;min-height:1.2em;}
-
-  main{padding:20px 24px 80px;max-width:1100px;margin:0 auto;}
-  .toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:10px;}
-  .toolbar .info{color:var(--grijs);font-size:.8rem;}
-  #refreshStatus{font-size:.78rem;color:var(--grijs);}
-  .sync-dot{width:8px;height:8px;border-radius:50%;background:var(--groen);display:inline-block;margin-right:6px;}
+  /* HEADER */
+  header{padding:16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--lijn);flex-wrap:wrap;gap:10px;}
+  h1{font-weight:800;font-size:1.4rem;margin:0;text-transform:uppercase;letter-spacing:.5px;}
+  h1 span{color:var(--maillot);}
+  .sub{color:var(--grijs);font-size:.75rem;margin-top:2px;}
+  .userbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .pill{background:var(--asfalt-2);border:1px solid var(--lijn);border-radius:999px;padding:5px 12px;font-size:.82rem;}
+  .pill b{color:var(--maillot);}
+  .sync-dot{width:7px;height:7px;border-radius:50%;background:var(--groen);display:inline-block;margin-right:5px;}
   .sync-dot.offline{background:var(--rood);}
 
-  table{width:100%;border-collapse:collapse;font-size:.9rem;}
-  thead th{text-align:left;font-family:var(--font-display);text-transform:uppercase;letter-spacing:.5px;font-size:.78rem;color:var(--grijs);border-bottom:2px solid var(--maillot);padding:10px 8px;}
-  th.num,td.num{text-align:center;width:70px;}
+  /* LOGIN / SETUP */
+  .center-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh;gap:16px;padding:24px;text-align:center;}
+  .center-screen h2{font-weight:800;font-size:1.5rem;margin:0;text-transform:uppercase;}
+  .center-screen p{color:var(--grijs);max-width:380px;margin:0;line-height:1.6;font-size:.9rem;}
+  .center-screen input[type=password]{background:var(--asfalt-2);border:1px solid var(--lijn);color:var(--wit);padding:12px 16px;border-radius:6px;font-size:1rem;width:220px;text-align:center;}
+  .err{color:var(--rood);font-size:.82rem;min-height:1.2em;}
+  .setup-box{background:var(--asfalt-2);border:1px solid var(--lijn);border-radius:10px;padding:20px;max-width:500px;width:100%;text-align:left;}
+  .setup-box h3{font-size:.8rem;text-transform:uppercase;letter-spacing:.5px;color:var(--maillot);margin:0 0 10px;}
+  .setup-step{display:flex;gap:8px;margin-bottom:8px;font-size:.82rem;color:var(--grijs);line-height:1.5;}
+  .setup-step b{color:var(--wit);}
+  .sn{background:var(--maillot);color:var(--asfalt);font-weight:800;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;flex-shrink:0;margin-top:1px;}
+
+  /* MAIN */
+  main{padding:14px 14px 90px;}
+  .toolbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;}
+  .toolbar-btns{display:flex;gap:6px;flex-wrap:wrap;}
+  #refreshStatus{font-size:.75rem;color:var(--grijs);align-self:center;}
+
+  /* TABEL — scrollt horizontaal op mobiel */
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:480px;}
+  thead th{text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.4px;color:var(--grijs);border-bottom:2px solid var(--maillot);padding:8px 6px;white-space:nowrap;}
+  th.num,td.num{text-align:center;width:56px;}
   tbody tr{border-bottom:1px solid var(--lijn);}
-  tbody tr:hover{background:rgba(255,255,255,0.03);}
-  td{padding:5px 8px;vertical-align:middle;}
-  .rider-name{cursor:pointer;font-weight:600;}
-  .rider-name:hover{color:var(--maillot);text-decoration:underline;}
-  .ploeg{color:var(--grijs);font-size:.8rem;}
-  .uitgevallen .rider-name,.uitgevallen .ploeg{text-decoration:line-through;opacity:.45;}
-  .uitgevallen td input{opacity:.35;pointer-events:none;}
-  input.score{width:46px;text-align:center;background:var(--asfalt-2);border:1px solid var(--lijn);color:var(--wit);border-radius:5px;padding:5px 2px;font-size:.9rem;}
+  tbody tr:hover{background:rgba(255,255,255,.03);}
+  td{padding:4px 6px;vertical-align:middle;}
+  .rider-name{cursor:pointer;font-weight:600;font-size:.85rem;}
+  .rider-name:hover,.rider-name:active{color:var(--maillot);text-decoration:underline;}
+  .ploeg{color:var(--grijs);font-size:.72rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:110px;}
+  .uitgevallen .rider-name,.uitgevallen .ploeg{text-decoration:line-through;opacity:.4;}
+  .uitgevallen td input{opacity:.3;pointer-events:none;}
+  input.score{width:42px;text-align:center;background:var(--asfalt-2);border:1px solid var(--lijn);color:var(--wit);border-radius:5px;padding:5px 2px;font-size:.9rem;-moz-appearance:textfield;}
+  input.score::-webkit-inner-spin-button,input.score::-webkit-outer-spin-button{-webkit-appearance:none;}
   input.score:disabled{background:transparent;border-color:transparent;color:var(--grijs);}
   input.score.mine{border-color:var(--maillot);}
   .gem{font-weight:700;color:var(--maillot);}
-  .actionbtn{background:transparent;border:1px solid var(--lijn);color:var(--grijs);width:28px;height:28px;border-radius:6px;font-size:.9rem;padding:0;line-height:1;}
-  .actionbtn:hover{border-color:var(--rood);color:var(--rood);}
-  .actionbtn.active-state{border-color:var(--groen);color:var(--groen);}
-  .stickybar{position:sticky;bottom:0;left:0;right:0;background:var(--asfalt-2);border-top:2px solid var(--maillot);padding:12px 24px;display:flex;justify-content:flex-end;align-items:center;gap:10px;z-index:30;}
-  .stickybar .savemsg{font-size:.78rem;color:var(--grijs);}
+  .actionbtn{background:transparent;border:1px solid var(--lijn);color:var(--grijs);width:26px;height:26px;border-radius:6px;font-size:.85rem;padding:0;line-height:1;}
+  .actionbtn:hover,.actionbtn:active{border-color:var(--rood);color:var(--rood);}
+  .actionbtn.herstel{border-color:var(--groen);color:var(--groen);}
   .empty{color:var(--grijs);text-align:center;padding:40px;font-style:italic;}
 
-  /* MODAL */
-  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:50;padding:20px;}
+  /* STICKY SAVE BAR */
+  .stickybar{position:fixed;bottom:0;left:0;right:0;background:var(--asfalt-2);border-top:2px solid var(--maillot);padding:10px 16px;display:flex;justify-content:flex-end;align-items:center;gap:10px;z-index:40;}
+  .savemsg{font-size:.75rem;color:var(--grijs);}
+
+  /* MODALS */
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:flex-end;justify-content:center;z-index:50;padding:0;}
+  @media(min-width:600px){.overlay{align-items:center;padding:20px;}}
   .overlay.show{display:flex;}
-  .modal{background:var(--asfalt-2);border:1px solid var(--lijn);border-radius:10px;max-width:560px;width:100%;max-height:85vh;overflow-y:auto;padding:24px;position:relative;}
-  .modal h2{font-family:var(--font-display);text-transform:uppercase;margin:0 0 2px;font-size:1.4rem;}
-  .modal .team{color:var(--grijs);font-size:.85rem;margin-bottom:16px;}
-  .modal .block{margin-bottom:16px;}
-  .modal .block h3{font-family:var(--font-display);text-transform:uppercase;font-size:.8rem;letter-spacing:.5px;color:var(--maillot);margin:0 0 6px;}
-  .modal .block p{margin:0;line-height:1.5;font-size:.9rem;color:#ddd;}
-  .ai-suggestie{display:inline-block;background:var(--asfalt);border:1px solid var(--maillot);color:var(--maillot);font-weight:700;padding:4px 12px;border-radius:6px;font-size:1.1rem;}
-  .modal-actions{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap;}
+  .modal{background:var(--asfalt-2);border:1px solid var(--lijn);border-radius:14px 14px 0 0;width:100%;max-height:90vh;overflow-y:auto;padding:20px 20px 32px;position:relative;}
+  @media(min-width:600px){.modal{border-radius:10px;max-width:540px;max-height:85vh;}}
+  .modal h2{font-weight:800;font-size:1.2rem;text-transform:uppercase;margin:0 0 2px;}
+  .modal .mteam{color:var(--grijs);font-size:.82rem;margin-bottom:14px;}
+  .modal .block{margin-bottom:14px;}
+  .modal .block h3{font-size:.75rem;text-transform:uppercase;letter-spacing:.5px;color:var(--maillot);margin:0 0 5px;}
+  .modal .block p{margin:0;line-height:1.5;font-size:.88rem;color:#ddd;}
+  .ai-score{display:inline-block;background:var(--asfalt);border:1px solid var(--maillot);color:var(--maillot);font-weight:700;padding:3px 12px;border-radius:6px;font-size:1.1rem;}
+  .modal-actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+  .closeX{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--grijs);font-size:1.3rem;padding:4px;line-height:1;}
   .loading-row{display:flex;align-items:center;gap:8px;color:var(--grijs);font-size:.85rem;}
-  .spinner{width:14px;height:14px;border:2px solid var(--lijn);border-top-color:var(--maillot);border-radius:50%;animation:spin 0.8s linear infinite;}
+  .spinner{width:14px;height:14px;border:2px solid var(--lijn);border-top-color:var(--maillot);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
   @keyframes spin{to{transform:rotate(360deg);}}
-  .closeX{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--grijs);font-size:1.3rem;padding:0;}
 </style>
 </head>
 <body>
-
 <div class="topband"></div>
 
-<!-- SETUP SCHERM (alleen voor kevin als Firebase nog niet is ingesteld) -->
-<div id="setup" style="display:none">
+<!-- SETUP -->
+<div id="setup" class="center-screen" style="display:none">
   <h2>Firebase <span style="color:var(--maillot)">instellen</span></h2>
-  <p>Vul hieronder je Firebase-configuratie in. Dit hoef je maar één keer te doen — daarna werkt opslaan voor iedereen op elk apparaat.</p>
   <div class="setup-box">
-    <h3>Stap 1 — Maak een Firebase-project aan</h3>
-    <div class="setup-step"><span class="step-num">1</span><span>Ga naar <b>console.firebase.google.com</b> en klik op <b>Add project</b>.</span></div>
-    <div class="setup-step"><span class="step-num">2</span><span>Geef het een naam (bijv. <b>tourspel</b>), klik door, Google Analytics mag uit.</span></div>
-    <div class="setup-step"><span class="step-num">3</span><span>Klik in het linkermenu op <b>Build → Realtime Database → Create database</b>. Kies <b>Start in test mode</b>.</span></div>
-    <div class="setup-step"><span class="step-num">4</span><span>Klik linksboven op het tandwiel → <b>Project settings → General</b> → scroll naar <b>Your apps</b> → klik op <b>&lt;/&gt; (Web)</b> → registreer de app → kopieer de <b>firebaseConfig</b>.</span></div>
+    <h3>Firebase-project aanmaken</h3>
+    <div class="setup-step"><span class="sn">1</span><span>Ga naar <b>console.firebase.google.com</b> → Add project</span></div>
+    <div class="setup-step"><span class="sn">2</span><span>Build → Realtime Database → Create database → <b>Start in test mode</b></span></div>
+    <div class="setup-step"><span class="sn">3</span><span>Tandwiel → Project settings → Your apps → <b>&lt;/&gt; Web</b> → kopieer firebaseConfig</span></div>
   </div>
-  <div class="setup-box" style="margin-top:0;">
-    <h3>Stap 2 — Plak de config hier</h3>
-    <p style="color:var(--grijs);font-size:.82rem;margin-bottom:10px;">Plak de volledige <code>firebaseConfig</code> hieronder (het JSON-object dat je van Firebase kopieert).</p>
-    <textarea id="firebaseConfigInput" rows="9" style="width:100%;background:var(--asfalt);border:1px solid var(--lijn);color:var(--wit);padding:10px 12px;border-radius:6px;font-family:monospace;font-size:.8rem;resize:vertical;" placeholder='{
-  "apiKey": "...",
-  "authDomain": "...",
-  "databaseURL": "...",
-  "projectId": "...",
-  "storageBucket": "...",
-  "messagingSenderId": "...",
-  "appId": "..."
-}'></textarea>
-    <div id="setupErr"></div>
-    <button class="btn-primary" style="margin-top:10px;width:100%;" onclick="saveFirebaseConfig()">Verbinding testen & opslaan</button>
+  <div class="setup-box">
+    <h3>Plak je firebaseConfig</h3>
+    <textarea id="firebaseConfigInput" rows="8" style="width:100%;background:var(--asfalt);border:1px solid var(--lijn);color:var(--wit);padding:10px;border-radius:6px;font-family:monospace;font-size:.78rem;resize:vertical;" placeholder='const firebaseConfig = { apiKey: "...", databaseURL: "...", ... };'></textarea>
+    <div id="setupErr" class="err"></div>
+    <button class="btn-primary" style="margin-top:8px;width:100%;" onclick="saveFirebaseConfig()">Verbinding testen & opslaan</button>
   </div>
 </div>
 
 <!-- LOGIN -->
-<div id="login">
-  <h2>De Limburger <span style="color:var(--maillot)">Tourspel</span></h2>
-  <p>Vul je wachtwoord in (naam + 11, bv. kevin11).</p>
-  <input id="loginInput" placeholder="wachtwoord..." autocomplete="off" type="password">
-  <button class="btn-primary" onclick="doLogin()">Inloggen</button>
-  <div id="loginErr"></div>
+<div id="login" class="center-screen">
+  <h2>De <span style="color:var(--maillot)">Limburger</span> Tourspel</h2>
+  <p>Vul je wachtwoord in</p>
+  <input type="password" id="loginInput" placeholder="bijv. kevin11" autocomplete="off">
+  <button class="btn-primary" style="width:220px" onclick="doLogin()">Inloggen</button>
+  <div id="loginErr" class="err"></div>
 </div>
 
 <!-- APP -->
@@ -144,44 +129,40 @@
   <header>
     <div>
       <h1>De <span>Limburger</span> Tourspel</h1>
-      <div class="sub">Waardering renners — Tour de France 2026</div>
+      <div class="sub">Tour de France 2026 · Rennerwaardering</div>
     </div>
     <div class="userbar">
-      <span><span class="sync-dot" id="syncDot"></span><span id="syncLabel" style="font-size:.78rem;color:var(--grijs);">verbonden</span></span>
+      <span style="font-size:.75rem;color:var(--grijs);"><span class="sync-dot" id="syncDot"></span><span id="syncLabel">verbonden</span></span>
       <div class="pill">Ingelogd als <b id="whoami"></b></div>
-      <button class="btn-ghost" onclick="logout()">Uitloggen</button>
+      <button class="btn-ghost" style="padding:6px 10px" onclick="logout()">Uit</button>
     </div>
   </header>
   <main>
     <div class="toolbar">
-      <div class="info">Klik op een renner voor achtergrond &amp; AI-waarderingsvoorstel. Uitgevallen renners kun je doorstrepen met ✕.</div>
-      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
-        <span id="refreshStatus"></span>
+      <div class="toolbar-btns">
         <input type="file" id="csvFile" accept=".csv,.txt,.pdf" style="display:none" onchange="handleFileUpload(event)">
-        <button class="btn-ghost" onclick="document.getElementById('csvFile').click()">⬆ Startlist uploaden</button>
-        <button class="btn-primary" onclick="openAddRider()">+ Renner toevoegen</button>
+        <button class="btn-ghost" onclick="document.getElementById('csvFile').click()">⬆ Startlist</button>
+        <button class="btn-ghost" onclick="openAddRider()">+ Renner</button>
       </div>
+      <span id="refreshStatus"></span>
     </div>
-    <div class="info" style="margin-bottom:10px;font-size:.75rem;">CSV: per regel <code>naam,ploeg</code>. Of upload de PDF-startlijst — die wordt automatisch uitgelezen.</div>
-    <table id="riderTable">
-      <thead>
-        <tr>
-          <th>Ploeg</th>
-          <th>Renner</th>
-          <th class="num">Geert</th>
-          <th class="num">Ralph</th>
-          <th class="num">Kevin</th>
-          <th class="num">Gem.</th>
-          <th style="width:50px;"></th>
-        </tr>
-      </thead>
-      <tbody id="riderBody"></tbody>
-    </table>
+    <div class="table-wrap">
+      <table id="riderTable">
+        <thead>
+          <tr>
+            <th>Ploeg</th><th>Renner</th>
+            <th class="num">Geert</th><th class="num">Ralph</th><th class="num">Kevin</th>
+            <th class="num">Gem.</th><th style="width:36px"></th>
+          </tr>
+        </thead>
+        <tbody id="riderBody"></tbody>
+      </table>
+    </div>
     <div id="emptyMsg" class="empty" style="display:none">Nog geen renners. Upload een startlist of voeg renners handmatig toe.</div>
   </main>
   <div class="stickybar">
     <span class="savemsg" id="saveMsg"></span>
-    <button class="btn-primary" onclick="saveAllScores()">💾 Cijfers opslaan</button>
+    <button class="btn-primary" onclick="saveAllScores()">💾 Opslaan</button>
   </div>
 </div>
 
@@ -190,38 +171,32 @@
   <div class="modal">
     <button class="closeX" onclick="closeModal()">✕</button>
     <h2 id="modalName"></h2>
-    <div class="team" id="modalTeam"></div>
+    <div class="mteam" id="modalTeam"></div>
     <div id="modalBody"><div class="loading-row"><div class="spinner"></div> AI haalt info op...</div></div>
     <div class="modal-actions">
-      <button class="btn-ghost" id="pcsBtn" onclick="window.open(currentPcsUrl,'_blank')">Open op ProCyclingStats ↗</button>
+      <button class="btn-primary" id="pcsBtn" onclick="openPcs()">Open op PCS ↗</button>
     </div>
   </div>
 </div>
 
-<!-- RENNER TOEVOEGEN MODAL -->
+<!-- TOEVOEGEN MODAL -->
 <div class="overlay" id="addRiderOverlay" onclick="if(event.target===this)closeAddRider()">
-  <div class="modal" style="max-width:380px;">
+  <div class="modal" style="max-width:380px">
     <button class="closeX" onclick="closeAddRider()">✕</button>
-    <h2 style="margin-bottom:16px;">Renner toevoegen</h2>
-    <div style="display:flex;flex-direction:column;gap:10px;">
-      <input id="newRiderName" placeholder="Naam renner" style="background:var(--asfalt);border:1px solid var(--lijn);color:var(--wit);padding:10px 12px;border-radius:6px;">
-      <input id="newRiderTeam" placeholder="Ploeg" style="background:var(--asfalt);border:1px solid var(--lijn);color:var(--wit);padding:10px 12px;border-radius:6px;">
+    <h2 style="margin-bottom:14px">Renner toevoegen</h2>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <input id="newRiderName" placeholder="Naam renner" style="background:var(--asfalt);border:1px solid var(--lijn);color:var(--wit);padding:10px 12px;border-radius:6px;font-size:.9rem">
+      <input id="newRiderTeam" placeholder="Ploeg" style="background:var(--asfalt);border:1px solid var(--lijn);color:var(--wit);padding:10px 12px;border-radius:6px;font-size:.9rem">
       <button class="btn-primary" onclick="addRiderManual()">Toevoegen</button>
     </div>
   </div>
 </div>
 
-<!-- Firebase SDK -->
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
-import { getDatabase, ref, set, onValue, get } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
+import { getDatabase, ref, set, onValue } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
 
-// ─── CONFIG ───────────────────────────────────────────────
-// Kevin vult dit eenmalig in via het setup-scherm.
-// De config wordt daarna opgeslagen in localStorage van zijn browser
-// zodat hij het niet opnieuw hoeft in te vullen.
-// Geert en Ralph kopiëren het HTML-bestand nadat Kevin de config heeft ingesteld,
-// OF Kevin voegt de config direct in onderstaand object (aanbevolen voor GitHub Pages):
+// ── FIREBASE CONFIG (hardcoded) ─────────────────────────────────────────────
 const HARDCODED_CONFIG = {
   apiKey: "AIzaSyDrxMQEIRyF7WChNO8IMDeJmcVo7KYD1Z4",
   authDomain: "tourspel-abca8.firebaseapp.com",
@@ -232,322 +207,340 @@ const HARDCODED_CONFIG = {
   appId: "1:500198146289:web:37652bd2d79e78b272a950"
 };
 
-// ─── GLOBALS ──────────────────────────────────────────────
+// ── GLOBALS ─────────────────────────────────────────────────────────────────
 const USERS = ['geert','ralph','kevin'];
 let currentUser = null;
 let riders = [];
 let scores = {};
-let currentPcsUrl = '#';
+let currentRiderForModal = null;
 let db = null;
 
-// ─── FIREBASE INIT ────────────────────────────────────────
+// ── HELPERS ─────────────────────────────────────────────────────────────────
+function slugify(s){
+  return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+}
+
+// PCS verwacht voornaam-achternaam. Namen in de data zijn "ACHTERNAAM Voornaam".
+// Omdraaien: "POGACAR Tadej" → "tadej-pogacar"
+function pcsSlug(name){
+  const parts = name.trim().split(/\s+/);
+  if(parts.length < 2) return slugify(name);
+  const last = parts[0];               // "POGACAR"
+  const first = parts.slice(1).join(' '); // "Tadej"
+  return slugify(first + '-' + last);
+}
+
+// ── FIREBASE ─────────────────────────────────────────────────────────────────
 function getConfig(){
   if(HARDCODED_CONFIG) return HARDCODED_CONFIG;
-  const stored = localStorage.getItem('tls-firebase-config');
-  if(stored){ try{ return JSON.parse(stored); }catch(e){} }
-  return null;
+  try{ const s=localStorage.getItem('tls-firebase-config'); return s?JSON.parse(s):null; }catch(e){return null;}
 }
 
 function initFirebase(config){
-  try{
-    const app = initializeApp(config);
-    db = getDatabase(app);
-    setSyncStatus(true);
-    return true;
-  }catch(e){
-    setSyncStatus(false);
-    return false;
-  }
+  try{ const app=initializeApp(config); db=getDatabase(app); setSyncStatus(true); return true; }
+  catch(e){ setSyncStatus(false); return false; }
 }
 
-// ─── SETUP (eenmalig) ─────────────────────────────────────
+function setSyncStatus(ok){
+  const dot=document.getElementById('syncDot'), lbl=document.getElementById('syncLabel');
+  if(!dot) return;
+  dot.className='sync-dot'+(ok?'':' offline');
+  lbl.textContent=ok?'verbonden':'offline';
+}
+
+async function fbSet(path,val){ await set(ref(db,path),val); }
+async function saveRiders(){ const o={}; riders.forEach(r=>{o[r.id]=r;}); await fbSet('riders',o); }
+async function saveScores(){ await fbSet('scores',scores); }
+
+// ── SETUP ────────────────────────────────────────────────────────────────────
 window.saveFirebaseConfig = async function(){
-  const raw = document.getElementById('firebaseConfigInput').value.trim();
-  const errEl = document.getElementById('setupErr');
-  errEl.style.color='var(--grijs)';
-  errEl.textContent = 'Testen...';
+  const raw=document.getElementById('firebaseConfigInput').value.trim();
+  const errEl=document.getElementById('setupErr');
+  errEl.style.color='var(--grijs)'; errEl.textContent='Testen...';
   try{
-    // Verwijder commentaarregels (// ...) en blokommentaar (/* ... */)
-    let cfg = raw
-      .replace(/\/\/[^\n]*/g, '')       // regel-commentaar
-      .replace(/\/\*[\s\S]*?\*\//g, '') // blok-commentaar
-      .trim();
-    // Verwijder eventuele "const firebaseConfig = " of "var firebaseConfig = " prefix
-    cfg = cfg.replace(/^(const|var|let)\s+\w+\s*=\s*/, '').replace(/;?\s*$/, '').trim();
-    const parsed = JSON.parse(cfg);
-    if(!parsed.databaseURL) throw new Error('databaseURL ontbreekt — zorg dat je Realtime Database hebt aangemaakt in Firebase.');
-    const ok = initFirebase(parsed);
-    if(!ok) throw new Error('Firebase kon niet worden geïnitialiseerd.');
-    // Test schrijftoegang
-    await set(ref(db,'_test'), 'ok');
-    localStorage.setItem('tls-firebase-config', JSON.stringify(parsed));
-    errEl.style.color='var(--groen)';
-    errEl.textContent = '✓ Verbinding geslaagd! Je kunt nu inloggen.';
-    setTimeout(()=>{ document.getElementById('setup').style.display='none'; document.getElementById('login').style.display='flex'; }, 1500);
-  }catch(e){
-    errEl.style.color='var(--rood)';
-    errEl.textContent = 'Fout: ' + e.message;
-  }
+    let cfg=raw.replace(/\/\/[^\n]*/g,'').replace(/\/\*[\s\S]*?\*\//g,'').trim();
+    cfg=cfg.replace(/^(const|var|let)\s+\w+\s*=\s*/,'').replace(/;?\s*$/,'').trim();
+    const parsed=JSON.parse(cfg);
+    if(!parsed.databaseURL) throw new Error('databaseURL ontbreekt — maak eerst een Realtime Database aan.');
+    if(!initFirebase(parsed)) throw new Error('Firebase kon niet worden geïnitialiseerd.');
+    await fbSet('_test','ok');
+    localStorage.setItem('tls-firebase-config',JSON.stringify(parsed));
+    errEl.style.color='var(--groen)'; errEl.textContent='✓ Verbinding geslaagd!';
+    setTimeout(()=>{document.getElementById('setup').style.display='none';document.getElementById('login').style.display='flex';},1200);
+  }catch(e){ errEl.style.color='var(--rood)'; errEl.textContent='Fout: '+e.message; }
 };
 
-// ─── SYNC STATUS ──────────────────────────────────────────
-function setSyncStatus(online){
-  const dot = document.getElementById('syncDot');
-  const lbl = document.getElementById('syncLabel');
-  if(!dot) return;
-  if(online){ dot.className='sync-dot'; lbl.textContent='verbonden'; }
-  else { dot.className='sync-dot offline'; lbl.textContent='offline'; }
-}
-
-// ─── LOGIN ────────────────────────────────────────────────
+// ── LOGIN ────────────────────────────────────────────────────────────────────
 window.doLogin = function(){
-  const val = document.getElementById('loginInput').value.trim().toLowerCase();
-  const matchedUser = USERS.find(u => val === u + '11');
-  if(matchedUser){
-    currentUser = matchedUser;
+  const val=document.getElementById('loginInput').value.trim().toLowerCase();
+  const u=USERS.find(u=>val===u+'11');
+  if(u){
+    currentUser=u;
     document.getElementById('login').style.display='none';
     document.getElementById('app').style.display='block';
-    document.getElementById('whoami').textContent = matchedUser.charAt(0).toUpperCase()+matchedUser.slice(1);
+    document.getElementById('whoami').textContent=u[0].toUpperCase()+u.slice(1);
     loadData();
   } else {
-    document.getElementById('loginErr').textContent = 'Onjuist wachtwoord. Probeer bijv. kevin11.';
+    document.getElementById('loginErr').textContent='Onjuist wachtwoord.';
   }
 };
-document.getElementById('loginInput').addEventListener('keydown', e=>{ if(e.key==='Enter') doLogin(); });
-window.logout = function(){
-  currentUser = null;
+document.getElementById('loginInput').addEventListener('keydown',e=>{if(e.key==='Enter') doLogin();});
+window.logout=function(){
+  currentUser=null;
   document.getElementById('app').style.display='none';
   document.getElementById('login').style.display='flex';
   document.getElementById('loginInput').value='';
 };
 
-// ─── REALTIME LISTENERS ───────────────────────────────────
+// ── REALTIME DATA ────────────────────────────────────────────────────────────
 function loadData(){
-  // Riders: realtime luisteren → automatisch bijwerken als Kevin een nieuwe PDF uploadt
-  onValue(ref(db,'riders'), snap=>{
-    riders = snap.val() ? Object.values(snap.val()) : [];
+  onValue(ref(db,'riders'),snap=>{
+    riders=snap.val()?Object.values(snap.val()):[];
     render();
-  }, err=>{ setSyncStatus(false); console.error(err); });
-
-  // Scores: realtime luisteren → Geert ziet direct wat Ralph invult
-  onValue(ref(db,'scores'), snap=>{
-    scores = snap.val() || {};
+  },err=>setSyncStatus(false));
+  onValue(ref(db,'scores'),snap=>{
+    scores=snap.val()||{};
     render();
-  }, err=>{ setSyncStatus(false); });
+  },err=>setSyncStatus(false));
 }
 
-// ─── OPSLAAN ──────────────────────────────────────────────
-async function fbSet(path, value){
-  await set(ref(db, path), value);
-}
-
-async function saveRiders(){
-  const obj = {};
-  riders.forEach(r=>{ obj[r.id]=r; });
-  await fbSet('riders', obj);
-}
-
-async function saveScores(){
-  await fbSet('scores', scores);
-}
-
-// ─── SAVE ALL SCORES ──────────────────────────────────────
-window.saveAllScores = async function(){
-  const msg = document.getElementById('saveMsg');
-  const inputs = document.querySelectorAll('input.score.mine');
-  let changed = 0;
-  inputs.forEach(inp=>{
-    const riderId = inp.dataset.riderId;
-    const user = inp.dataset.user;
-    let v = inp.value;
-    if(v!==''){ v = Math.max(0, Math.min(10, Math.round(Number(v)))); inp.value=v; }
-    if(!scores[riderId]) scores[riderId]={};
-    const prev = scores[riderId][user];
-    if(v===''){ if(prev!==undefined){ delete scores[riderId][user]; changed++; } }
-    else if(Number(v)!==prev){ scores[riderId][user]=Number(v); changed++; }
-  });
-  if(changed===0){ msg.textContent='Niets gewijzigd.'; return; }
-  msg.textContent='Opslaan...';
-  try{
-    await saveScores();
-    msg.textContent=changed+' cijfer(s) opgeslagen — '+new Date().toLocaleTimeString('nl-NL');
-  }catch(e){
-    setSyncStatus(false);
-    msg.textContent='Fout bij opslaan: '+e.message;
-  }
-};
-
-// ─── RENDER ───────────────────────────────────────────────
-function avg(riderId){
-  const s = scores[riderId]||{};
-  const vals = USERS.map(u=>s[u]).filter(v=>v!==undefined&&v!==null&&v!=='');
+// ── RENDER ───────────────────────────────────────────────────────────────────
+function avg(id){
+  const s=scores[id]||{};
+  const vals=USERS.map(u=>s[u]).filter(v=>v!==undefined&&v!=='');
   if(!vals.length) return '';
   return Math.round(vals.reduce((a,b)=>a+Number(b),0)/vals.length);
 }
 
 function render(){
-  const body = document.getElementById('riderBody');
-  const empty = document.getElementById('emptyMsg');
+  const body=document.getElementById('riderBody');
+  const empty=document.getElementById('emptyMsg');
   body.innerHTML='';
-  if(!riders.length){ empty.style.display='block'; return; }
+  if(!riders.length){empty.style.display='block';return;}
   empty.style.display='none';
-  const sorted = [...riders].sort((a,b)=>{
+  const sorted=[...riders].sort((a,b)=>{
     if(a.active!==b.active) return a.active?-1:1;
     if(a.team!==b.team) return a.team.localeCompare(b.team);
     return a.name.localeCompare(b.name);
   });
+  // Bouw lijst van bewerkbare inputs voor Enter-navigatie
+  const editableInputs=[];
   for(const rider of sorted){
-    const tr = document.createElement('tr');
+    const tr=document.createElement('tr');
     if(!rider.active) tr.classList.add('uitgevallen');
-    const s = scores[rider.id]||{};
+    const s=scores[rider.id]||{};
 
-    const tdT = document.createElement('td'); tdT.className='ploeg'; tdT.textContent=rider.team; tr.appendChild(tdT);
-    const tdN = document.createElement('td');
-    const ns = document.createElement('span'); ns.className='rider-name'; ns.textContent=rider.name; ns.onclick=()=>openModal(rider);
-    tdN.appendChild(ns); tr.appendChild(tdN);
+    const tdT=document.createElement('td'); tdT.className='ploeg'; tdT.textContent=rider.team; tr.appendChild(tdT);
+    const tdN=document.createElement('td');
+    const ns=document.createElement('span'); ns.className='rider-name'; ns.textContent=rider.name;
+    ns.onclick=()=>openModal(rider); tdN.appendChild(ns); tr.appendChild(tdN);
 
     USERS.forEach(u=>{
-      const td = document.createElement('td'); td.className='num';
-      const inp = document.createElement('input');
+      const td=document.createElement('td'); td.className='num';
+      const inp=document.createElement('input');
       inp.type='number'; inp.min=0; inp.max=10; inp.className='score';
-      inp.value=(s[u]!==undefined&&s[u]!==null)?s[u]:'';
+      inp.value=(s[u]!=null)?s[u]:'';
       const editable=(u===currentUser)&&rider.active;
       inp.disabled=!editable;
-      if(editable){ inp.classList.add('mine'); inp.dataset.riderId=rider.id; inp.dataset.user=u; }
+      if(editable){
+        inp.classList.add('mine');
+        inp.dataset.riderId=rider.id;
+        inp.dataset.user=u;
+        editableInputs.push(inp);
+      }
       td.appendChild(inp); tr.appendChild(td);
     });
 
-    const tdG = document.createElement('td'); tdG.className='num gem'; tdG.textContent=avg(rider.id); tr.appendChild(tdG);
+    const tdG=document.createElement('td'); tdG.className='num gem'; tdG.textContent=avg(rider.id); tr.appendChild(tdG);
 
-    const tdA = document.createElement('td'); tdA.style.textAlign='center';
-    const btn = document.createElement('button');
-    btn.className='actionbtn'+(rider.active?'':' active-state');
-    btn.title=rider.active?'Doorstrepen':'Herstellen';
-    btn.textContent='✕';
+    const tdA=document.createElement('td'); tdA.style.textAlign='center';
+    const btn=document.createElement('button');
+    btn.className='actionbtn'+(rider.active?'':' herstel');
+    btn.title=rider.active?'Doorstrepen':'Herstellen'; btn.textContent='✕';
     btn.onclick=()=>toggleActive(rider.id);
     tdA.appendChild(btn); tr.appendChild(tdA);
     body.appendChild(tr);
   }
+
+  // Enter-navigatie: ga naar volgende bewerkbare input
+  editableInputs.forEach((inp,i)=>{
+    inp.addEventListener('keydown',e=>{
+      if(e.key==='Enter'){
+        e.preventDefault();
+        const next=editableInputs[i+1];
+        if(next){ next.focus(); next.select(); }
+        else { document.getElementById('saveAllScores_btn') && document.getElementById('saveAllScores_btn').focus(); }
+      }
+    });
+  });
 }
 
-// ─── BEHEER ───────────────────────────────────────────────
-function slugify(name){
-  return name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
-}
+// ── OPSLAAN ──────────────────────────────────────────────────────────────────
+window.saveAllScores = async function(){
+  const msg=document.getElementById('saveMsg');
+  let changed=0;
+  document.querySelectorAll('input.score.mine').forEach(inp=>{
+    const id=inp.dataset.riderId, u=inp.dataset.user;
+    let v=inp.value;
+    if(v!==''){v=String(Math.max(0,Math.min(10,Math.round(Number(v))))); inp.value=v;}
+    if(!scores[id]) scores[id]={};
+    const prev=scores[id][u];
+    if(v===''){ if(prev!=null){delete scores[id][u];changed++;} }
+    else if(Number(v)!==prev){ scores[id][u]=Number(v); changed++; }
+  });
+  if(!changed){msg.textContent='Niets gewijzigd.'; return;}
+  msg.textContent='Opslaan...';
+  try{
+    await saveScores();
+    msg.textContent=changed+' cijfer(s) opgeslagen — '+new Date().toLocaleTimeString('nl-NL');
+  }catch(e){ setSyncStatus(false); msg.textContent='Fout: '+e.message; }
+};
 
-window.openAddRider = function(){ document.getElementById('newRiderName').value=''; document.getElementById('newRiderTeam').value=''; document.getElementById('addRiderOverlay').classList.add('show'); };
-window.closeAddRider = function(){ document.getElementById('addRiderOverlay').classList.remove('show'); };
-
-window.addRiderManual = async function(){
-  const name = document.getElementById('newRiderName').value.trim();
-  const team = document.getElementById('newRiderTeam').value.trim();
-  if(!name){ alert('Vul een naam in.'); return; }
-  riders.push({id:slugify(name)+'-'+Date.now().toString(36).slice(-4), name, team:team||'Onbekend', active:true});
+// ── BEHEER ───────────────────────────────────────────────────────────────────
+window.openAddRider=()=>{
+  document.getElementById('newRiderName').value='';
+  document.getElementById('newRiderTeam').value='';
+  document.getElementById('addRiderOverlay').classList.add('show');
+};
+window.closeAddRider=()=>document.getElementById('addRiderOverlay').classList.remove('show');
+window.addRiderManual=async()=>{
+  const name=document.getElementById('newRiderName').value.trim();
+  const team=document.getElementById('newRiderTeam').value.trim();
+  if(!name){alert('Vul een naam in.');return;}
+  riders.push({id:slugify(name)+'-'+Date.now().toString(36).slice(-4),name,team:team||'Onbekend',active:true});
   await saveRiders(); closeAddRider();
 };
-
-window.toggleActive = async function(riderId){
-  const r = riders.find(x=>x.id===riderId);
-  if(!r) return;
-  r.active=!r.active;
-  await saveRiders();
+window.toggleActive=async id=>{
+  const r=riders.find(x=>x.id===id); if(!r) return;
+  r.active=!r.active; await saveRiders();
 };
 
-// ─── FILE UPLOAD ──────────────────────────────────────────
-function parseCsvLine(line){
-  const result=[]; let cur=''; let inQ=false;
-  for(const c of line){ if(c==='"'){inQ=!inQ;} else if(c===','&&!inQ){result.push(cur.trim());cur='';} else {cur+=c;} }
-  result.push(cur.trim()); return result;
+// ── UPLOAD ───────────────────────────────────────────────────────────────────
+function parseCsv(line){
+  const res=[]; let cur=''; let q=false;
+  for(const c of line){if(c==='"'){q=!q;}else if(c===','&&!q){res.push(cur.trim());cur='';}else{cur+=c;}}
+  res.push(cur.trim()); return res;
 }
-
-function mergeFetched(fetched){
-  const existing=new Set(riders.map(r=>r.name.trim().toLowerCase()));
-  let added=0,updated=0;
+function merge(fetched){
+  const ex=new Set(riders.map(r=>r.name.trim().toLowerCase()));
+  let added=0,upd=0;
   fetched.forEach(r=>{
     if(!r.name) return;
-    const key=r.name.trim().toLowerCase();
-    if(existing.has(key)){
-      const ex=riders.find(x=>x.name.trim().toLowerCase()===key);
-      if(r.team&&ex.team!==r.team){ex.team=r.team;updated++;}
+    const k=r.name.trim().toLowerCase();
+    if(ex.has(k)){
+      const e=riders.find(x=>x.name.trim().toLowerCase()===k);
+      if(r.team&&e.team!==r.team){e.team=r.team;upd++;}
     } else {
       riders.push({id:slugify(r.name)+'-'+Date.now().toString(36).slice(-4)+Math.random().toString(36).slice(-3),name:r.name,team:r.team||'Onbekend',active:true});
-      existing.add(key); added++;
+      ex.add(k); added++;
     }
   });
-  return {added,updated};
+  return {added,upd};
 }
-
-window.handleFileUpload = async function(event){
+window.handleFileUpload=async event=>{
   const file=event.target.files[0]; if(!file) return;
+  const st=document.getElementById('refreshStatus');
   const isPdf=file.name.toLowerCase().endsWith('.pdf')||file.type==='application/pdf';
-  const status=document.getElementById('refreshStatus');
   if(isPdf){
-    status.textContent='PDF wordt uitgelezen...';
+    st.textContent='PDF wordt uitgelezen...';
     try{
-      const base64=await new Promise((res,rej)=>{const rd=new FileReader();rd.onload=()=>res(rd.result.split(',')[1]);rd.onerror=()=>rej(new Error('Kon PDF niet lezen.'));rd.readAsDataURL(file);});
-      const tp=new Promise((_,rej)=>setTimeout(()=>rej(new Error('TIMEOUT')),90000));
-      const fp=fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:8000,messages:[{role:'user',content:[{type:'document',source:{type:'base64',media_type:'application/pdf',data:base64}},{type:'text',text:'Dit is een startlijst (renners + ploegen) voor een wielerwedstrijd. Haal ALLE renners met hun ploeg uit dit document. Geef ALLEEN een JSON array terug, zonder uitleg, zonder markdown: [{"name":"Voornaam Achternaam","team":"Teamnaam"}, ...]. Begin met [ en eindig met ].'}]},{role:'assistant',content:'['}]})});
-      const resp=await Promise.race([fp,tp]);
-      if(!resp.ok) throw new Error('API status '+resp.status);
+      const b64=await new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result.split(',')[1]);r.onerror=()=>rej(new Error('Leesfout'));r.readAsDataURL(file);});
+      const resp=await Promise.race([
+        fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+          model:'claude-sonnet-4-6',max_tokens:8000,
+          messages:[
+            {role:'user',content:[
+              {type:'document',source:{type:'base64',media_type:'application/pdf',data:b64}},
+              {type:'text',text:'Dit is een startlijst van een wielerwedstrijd. Extraheer ALLE renners met hun ploeg. Geef uitsluitend een JSON-array terug zonder uitleg of markdown:\n[{"name":"Voornaam Achternaam","team":"Ploegnaam"}]'}
+            ]},
+            {role:'assistant',content:'['}
+          ]
+        })}),
+        new Promise((_,rej)=>setTimeout(()=>rej(new Error('Timeout')),90000))
+      ]);
+      if(!resp.ok) throw new Error('API '+resp.status);
       const data=await resp.json();
-      let txt=(data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n');
-      txt='['+txt;
-      let fetched=null;
-      try{fetched=JSON.parse(txt);}catch(e){const m=txt.match(/\[[\s\S]*\]/);if(m)try{fetched=JSON.parse(m[0]);}catch(e2){}}
-      if(!fetched||!fetched.length) throw new Error('Geen renners herkend in PDF.');
-      const {added,updated}=mergeFetched(fetched);
+      let txt='['+((data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join(''));
+      // Zorg dat de JSON afgesloten is
+      const lastBracket=txt.lastIndexOf(']');
+      if(lastBracket>0) txt=txt.slice(0,lastBracket+1);
+      const fetched=JSON.parse(txt);
+      if(!fetched.length) throw new Error('Geen renners herkend.');
+      const {added,upd}=merge(fetched);
       await saveRiders();
-      status.textContent=`PDF verwerkt — ${added} nieuw, ${updated} update(s)`;
-    }catch(e){ status.textContent='Mislukt: '+(e.message==='TIMEOUT'?'te lang, probeer opnieuw':e.message); }
+      st.textContent=`PDF verwerkt — ${added} nieuw, ${upd} update(s)`;
+    }catch(e){st.textContent='Mislukt: '+e.message;}
   } else {
     try{
-      const text=await file.text();
-      const lines=text.split(/\r?\n/).map(l=>l.trim()).filter(l=>l);
-      let si=0; const fc=parseCsvLine(lines[0]).map(c=>c.toLowerCase());
+      const txt=await file.text();
+      const lines=txt.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+      let si=0;
+      const fc=parseCsv(lines[0]).map(c=>c.toLowerCase());
       if(fc[0]==='naam'||fc[0]==='name') si=1;
       const fetched=[];
-      for(let i=si;i<lines.length;i++){const cols=parseCsvLine(lines[i]);if(!cols[0]) continue;fetched.push({name:cols[0].replace(/^"|"$/g,'').trim(),team:(cols[1]||'Onbekend').replace(/^"|"$/g,'').trim()});}
+      for(let i=si;i<lines.length;i++){const c=parseCsv(lines[i]);if(c[0]) fetched.push({name:c[0].replace(/^"|"$/g,'').trim(),team:(c[1]||'Onbekend').replace(/^"|"$/g,'').trim()});}
       if(!fetched.length) throw new Error('Geen renners gevonden.');
-      const {added,updated}=mergeFetched(fetched);
+      const {added,upd}=merge(fetched);
       await saveRiders();
-      status.textContent=`Bijgewerkt — ${added} nieuw, ${updated} update(s)`;
-    }catch(e){ status.textContent='Mislukt: '+e.message; }
+      st.textContent=`${added} nieuw, ${upd} update(s)`;
+    }catch(e){st.textContent='Mislukt: '+e.message;}
   }
   event.target.value='';
 };
 
-// ─── MODAL AI INFO ────────────────────────────────────────
-window.closeModal=function(){ document.getElementById('modalOverlay').classList.remove('show'); };
-window.openModal=async function(rider){
+// ── MODAL AI INFO ─────────────────────────────────────────────────────────────
+window.closeModal=()=>document.getElementById('modalOverlay').classList.remove('show');
+window.openPcs=()=>{ if(currentRiderForModal) window.open('https://www.procyclingstats.com/rider/'+pcsSlug(currentRiderForModal.name),'_blank'); };
+
+window.openModal=async rider=>{
+  currentRiderForModal=rider;
   document.getElementById('modalName').textContent=rider.name;
   document.getElementById('modalTeam').textContent=rider.team+(rider.active?'':' (uit startlist)');
   document.getElementById('modalBody').innerHTML='<div class="loading-row"><div class="spinner"></div> AI haalt info op...</div>';
-  currentPcsUrl='https://www.procyclingstats.com/rider/'+slugify(rider.name);
   document.getElementById('modalOverlay').classList.add('show');
+
   try{
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1200,messages:[{role:'user',content:`Gebruik web search om actuele informatie te vinden over wielrenner ${rider.name} (team: ${rider.team}). Zoek ook de spelregels op https://spellen.limburger.nl/nl/poules/limburger/tour-de-france-2025/spelregels.\n\nGeef het antwoord ALLEEN als JSON: {"achtergrond":"2-3 zinnen profiel","prestaties":"2-3 zinnen dit seizoen","suggestie":7,"motivatie":"1-2 zinnen"}`}],tools:[{type:'web_search_20250305',name:'web_search'}]})});
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',max_tokens:1500,
+        tools:[{type:'web_search_20250305',name:'web_search'}],
+        messages:[{
+          role:'user',
+          content:`Zoek informatie over wielrenner ${rider.name} (team: ${rider.team}) en de spelregels op https://spellen.limburger.nl/nl/poules/limburger/tour-de-france-2025/spelregels
+
+Geef je antwoord als ALLEEN dit JSON-object (geen markdown, geen uitleg eromheen):
+{"achtergrond":"2-3 zinnen over profiel en sterke punten","prestaties":"2-3 zinnen over resultaten dit seizoen","suggestie":7,"motivatie":"1-2 zinnen waarom dit cijfer"}`
+        }]
+      })
+    });
+    if(!resp.ok) throw new Error('API '+resp.status);
     const data=await resp.json();
-    const txt=data.content.filter(b=>b.type==='text').map(b=>b.text).join('\n');
-    const m=txt.match(/\{[\s\S]*\}/); if(!m) throw new Error('Geen geldig antwoord.');
-    const info=JSON.parse(m[0]);
-    const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    // Zoek het laatste text-blok (na alle tool-calls)
+    const textBlocks=(data.content||[]).filter(b=>b.type==='text');
+    const txt=textBlocks.map(b=>b.text).join('\n');
+    // Extraheer het JSON-object
+    const start=txt.indexOf('{');
+    const end=txt.lastIndexOf('}');
+    if(start===-1||end===-1) throw new Error('Geen JSON gevonden in antwoord.');
+    const info=JSON.parse(txt.slice(start,end+1));
+    const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     document.getElementById('modalBody').innerHTML=`
-      <div class="block"><h3>Profiel</h3><p>${esc(info.achtergrond||'')}</p></div>
-      <div class="block"><h3>Prestaties dit seizoen</h3><p>${esc(info.prestaties||'')}</p></div>
-      <div class="block"><h3>AI-voorstel</h3><p><span class="ai-suggestie">${info.suggestie??'?'} / 10</span></p><p style="margin-top:8px;">${esc(info.motivatie||'')}</p></div>`;
-  }catch(e){ document.getElementById('modalBody').innerHTML=`<div class="block"><p style="color:var(--rood)">Kon info niet ophalen: ${e.message}</p></div>`; }
+      <div class="block"><h3>Profiel</h3><p>${esc(info.achtergrond)}</p></div>
+      <div class="block"><h3>Prestaties dit seizoen</h3><p>${esc(info.prestaties)}</p></div>
+      <div class="block"><h3>AI-voorstel waardering</h3>
+        <p><span class="ai-score">${info.suggestie??'?'} / 10</span></p>
+        <p style="margin-top:8px">${esc(info.motivatie)}</p>
+      </div>`;
+  }catch(e){
+    document.getElementById('modalBody').innerHTML=`<p style="color:var(--rood);font-size:.88rem">Kon geen info ophalen: ${e.message}</p>`;
+  }
 };
 
-// ─── START ────────────────────────────────────────────────
-const cfg = getConfig();
-if(cfg){
-  initFirebase(cfg);
-  document.getElementById('login').style.display='flex';
-} else {
-  // Geen config → setup tonen (alleen Kevin hoeft dit te doen)
-  document.getElementById('login').style.display='none';
-  document.getElementById('setup').style.display='flex';
-}
+// ── START ────────────────────────────────────────────────────────────────────
+const cfg=getConfig();
+if(cfg){ initFirebase(cfg); document.getElementById('login').style.display='flex'; }
+else { document.getElementById('login').style.display='none'; document.getElementById('setup').style.display='flex'; }
 </script>
 </body>
 </html>

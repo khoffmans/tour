@@ -1,0 +1,615 @@
+```html
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sinterklaas Verlanglijstjes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #7f1d1d 0%, #450a0a 100%);
+            min-height: 100vh;
+        }
+        .sinterklaas-title {
+            font-family: 'Playfair Display', serif;
+        }
+        .gift-card {
+            transition: all 0.3s ease;
+        }
+        .gift-card:hover {
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+<body class="text-gray-100 flex flex-col min-h-screen">
+
+    <header class="bg-red-950/80 backdrop-blur border-b border-red-900 shadow-xl sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <span class="text-3xl">🎁</span>
+                <div>
+                    <h1 class="sinterklaas-title text-2xl md:text-3xl font-bold text-amber-300 tracking-wide">Sinterklaas Verlanglijstjes</h1>
+                    <p class="text-xs text-red-200">Pakjesavond editie 2026</p>
+                </div>
+            </div>
+            <div id="user-status-container" class="hidden flex items-center space-x-4 bg-red-900/60 px-4 py-2 rounded-full border border-amber-500/30">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-full bg-amber-500 text-red-950 font-bold flex items-center justify-center text-sm shadow" id="current-user-avatar">?</div>
+                    <div>
+                        <span class="text-xs text-amber-200 block">Ingelogd als:</span>
+                        <strong class="text-sm font-semibold text-white" id="current-user-name">Naam</strong>
+                    </div>
+                </div>
+                <button onclick="logout()" class="bg-red-800 hover:bg-red-700 text-xs px-3 py-1.5 rounded-lg text-amber-200 transition border border-red-700">Wisselen</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8">
+        
+        <!-- LOGIN SCREEN -->
+        <div id="login-screen" class="max-w-md mx-auto bg-gradient-to-b from-red-900/90 to-red-950/90 border border-amber-500/30 rounded-2xl p-8 shadow-2xl backdrop-blur-md">
+            <div class="text-center mb-8">
+                <div class="text-5xl mb-3">🥾</div>
+                <h2 class="sinterklaas-title text-3xl font-bold text-amber-300">Wie ben jij?</h2>
+                <p class="text-sm text-red-200 mt-1">Kies je naam om je verlanglijst te openen en de geheimhouding te waarborgen!</p>
+            </div>
+            
+            <div id="name-buttons" class="grid grid-cols-2 gap-3 mb-6">
+                <!-- Dynamisch gevuld -->
+            </div>
+
+            <!-- SMS Code simulatie modal / sectie -->
+            <div id="sms-section" class="hidden border-t border-red-800 pt-6 mt-6">
+                <div class="bg-red-950/70 p-4 rounded-xl border border-amber-500/20 text-center">
+                    <p class="text-xs text-amber-200 mb-2">📲 Sint stelt een veiligheidsvraag / SMS-code in voor <span id="sms-target-name" class="font-bold text-white"></span>:</p>
+                    <p class="text-xs text-gray-300 italic mb-3">Gebruik de geheime Sint-code: <strong class="text-amber-400">1234</strong> of laat leeg</p>
+                    <div class="flex space-x-2">
+                        <input type="password" id="sms-code-input" maxlength="4" placeholder="Code (1234)" class="w-full bg-red-900 border border-red-700 rounded-lg px-3 py-2 text-center tracking-widest text-white focus:outline-none focus:border-amber-400 text-sm">
+                        <button onclick="verifySmsCode()" class="bg-amber-500 hover:bg-amber-400 text-red-950 font-bold px-4 py-2 rounded-lg text-sm transition shadow">Bevestig</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD / APP SCREEN -->
+        <div id="app-screen" class="hidden">
+            <!-- Navigatie tussen tabbladen -->
+            <div class="flex flex-wrap gap-2 mb-8 border-b border-red-900/80 pb-4">
+                <button onclick="switchTab('my-list')" id="tab-my-list" class="flex items-center space-x-2 px-5 py-2.5 rounded-xl font-medium text-sm transition bg-amber-500 text-red-950 shadow-lg">
+                    <span>📜</span>
+                    <span>Mijn Verlanglijst</span>
+                </button>
+                <button onclick="switchTab('others-list')" id="tab-others-list" class="flex items-center space-x-2 px-5 py-2.5 rounded-xl font-medium text-sm transition bg-red-900/60 text-red-200 hover:bg-red-900 border border-red-800">
+                    <span>🎁</span>
+                    <span>Andermans Lijstjes & Notities</span>
+                </button>
+            </div>
+
+            <!-- TAB 1: MIJN VERLANGLIJST -->
+            <div id="content-my-list" class="space-y-6">
+                <div class="bg-gradient-to-r from-red-900/80 to-red-950/80 border border-amber-500/30 rounded-2xl p-6 shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h2 class="sinterklaas-title text-2xl font-bold text-amber-300">Jouw Persoonlijke Verlanglijst</h2>
+                        <p class="text-sm text-red-200">Voeg cadeautjes toe waar jij blij van wordt. Handige tip: Voeg een link toe zodat foto's automatisch worden opgehaald!</p>
+                    </div>
+                    <button onclick="openAddItemModal()" class="bg-amber-500 hover:bg-amber-400 text-red-950 font-bold px-5 py-3 rounded-xl transition flex items-center space-x-2 shadow-lg">
+                        <span class="text-lg">➕</span>
+                        <span>Cadeau Toevoegen</span>
+                    </button>
+                </div>
+
+                <!-- Lijst met items van de ingelogde gebruiker -->
+                <div id="my-items-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Dynamisch gevuld -->
+                </div>
+            </div>
+
+            <!-- TAB 2: ANDERMANS LIJSTJES -->
+            <div id="content-others-list" class="hidden space-y-6">
+                <div class="bg-gradient-to-r from-red-900/80 to-red-950/80 border border-amber-500/30 rounded-2xl p-6 shadow-xl">
+                    <h2 class="sinterklaas-title text-2xl font-bold text-amber-300 mb-2">Verlanglijstjes van anderen</h2>
+                    <p class="text-sm text-red-200 mb-6">Bekijk wat de anderen graag willen hebben. Je kunt hier ook geheime notities achterlaten (zoals "Al gekocht!" of "Prijs is duur"). Handig: Je eigen notities zie je zelf niet, zodat de verrassing intact blijft!</p>
+                    
+                    <div id="others-selector" class="flex flex-wrap gap-3">
+                        <!-- Knoppen voor andere personen -->
+                    </div>
+                </div>
+
+                <div id="other-person-container" class="hidden space-y-6">
+                    <div class="bg-red-950/60 border border-red-800/80 rounded-2xl p-6 flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-amber-300 flex items-center space-x-2">
+                            <span>🎁</span>
+                            <span id="viewing-person-name">Naam</span>
+                            <span class="text-xs font-normal text-red-300 bg-red-900 px-3 py-1 rounded-full border border-red-700">Verlanglijst</span>
+                        </h3>
+                    </div>
+
+                    <div id="other-items-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Dynamisch gevuld -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- MODAL: CADEAU TOEVOEGEN -->
+    <div id="add-item-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-red-950 border border-amber-500/40 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative">
+            <button onclick="closeAddItemModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
+            
+            <h3 class="sinterklaas-title text-2xl font-bold text-amber-300 mb-4 flex items-center space-x-2">
+                <span>🎁</span>
+                <span>Cadeau toevoegen aan verlanglijst</span>
+            </h3>
+
+            <form id="add-item-form" onsubmit="handleAddItem(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-medium text-amber-200 mb-1">Naam van het cadeau *</label>
+                    <input type="text" id="item-title" required placeholder="Bijv. Warme wollen sjaal" class="w-full bg-red-900/80 border border-red-700 rounded-xl px-4 py-2.5 text-white placeholder-red-300/50 focus:outline-none focus:border-amber-400 text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-amber-200 mb-1">Beschrijving / Maat / Kleur</label>
+                    <textarea id="item-desc" rows="2" placeholder="Bijv. Donkerblauw, maat L, liefst van wol" class="w-full bg-red-900/80 border border-red-700 rounded-xl px-4 py-2.5 text-white placeholder-red-300/50 focus:outline-none focus:border-amber-400 text-sm"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-amber-200 mb-1">Weblink (URL)</label>
+                    <input type="url" id="item-link" placeholder="https://www.webshop.nl/cadeau" oninput="previewUrlImage()" class="w-full bg-red-900/80 border border-red-700 rounded-xl px-4 py-2.5 text-white placeholder-red-300/50 focus:outline-none focus:border-amber-400 text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-amber-200 mb-1">Foto URL (Optioneel, wordt automatisch ingevuld bij weblink)</label>
+                    <input type="url" id="item-image" placeholder="https://..." class="w-full bg-red-900/80 border border-red-700 rounded-xl px-4 py-2.5 text-white placeholder-red-300/50 focus:outline-none focus:border-amber-400 text-sm">
+                </div>
+
+                <!-- Live Preview van foto -->
+                <div id="image-preview-container" class="hidden">
+                    <span class="block text-xs text-amber-200 mb-1">Voorbeeld foto:</span>
+                    <div class="h-32 w-full bg-red-900/50 rounded-xl border border-red-800 flex items-center justify-center overflow-hidden">
+                        <img id="preview-img" src="" alt="Preview" class="h-full object-contain" onerror="this.src='https://placehold.co/400x300/7f1d1d/fde047?text=Geen+Afbeelding'">
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-4 border-t border-red-900">
+                    <button type="button" onclick="closeAddItemModal()" class="px-5 py-2.5 rounded-xl bg-red-900 text-red-200 hover:bg-red-800 text-sm font-medium transition border border-red-700">Annuleren</button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-red-950 font-bold text-sm transition shadow">Toevoegen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: NOTITIE TOEVOEGEN -->
+    <div id="add-note-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-red-950 border border-amber-500/40 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeAddNoteModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
+            
+            <h3 class="sinterklaas-title text-xl font-bold text-amber-300 mb-2">Geheime Notitie</h3>
+            <p class="text-xs text-red-200 mb-4" id="note-modal-subtitle">Voeg een notitie toe aan dit cadeau (onzichtbaar voor de eigenaar!)</p>
+
+            <form id="add-note-form" onsubmit="handleSaveNote(event)" class="space-y-4">
+                <input type="hidden" id="note-item-id">
+                <input type="hidden" id="note-item-owner">
+                
+                <div>
+                    <textarea id="note-text" rows="3" required placeholder="Bijv. Deze sjaal heb ik al gekocht bij de Hema!" class="w-full bg-red-900/80 border border-red-700 rounded-xl px-4 py-2.5 text-white placeholder-red-300/50 focus:outline-none focus:border-amber-400 text-sm"></textarea>
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-2">
+                    <button type="button" onclick="closeAddNoteModal()" class="px-4 py-2 rounded-xl bg-red-900 text-red-200 hover:bg-red-800 text-sm font-medium transition border border-red-700">Annuleren</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-red-950 font-bold text-sm transition shadow">Opslaan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Data & State
+        const names = ["Freek", "Kelly", "Kevin", "Annemiek", "Petra", "Martin"];
+        let currentUser = null;
+        let selectedPersonToView = null;
+        let selectedNameForSms = null;
+        let currentEditingItemId = null;
+
+        // Init localStorage database structure if empty
+        function initStorage() {
+            if (!localStorage.getItem('sinterklaas_items')) {
+                const initialItems = {};
+                names.forEach(name => {
+                    initialItems[name] = [
+                        {
+                            id: 'item_' + Math.random().toString(36).substr(2, 9),
+                            title: 'Voorbeeld cadeau voor ' + name,
+                            desc: 'Dit is een voorbeeld item op de lijst.',
+                            link: 'https://www.bol.com',
+                            image: 'https://placehold.co/400x300/7f1d1d/fde047?text=Cadeau+' + name,
+                            notes: [
+                                { id: 'note_1', author: 'Sint', text: 'Dit is een geheime notitie (test).' }
+                            ]
+                        }
+                    ];
+                });
+                localStorage.setItem('sinterklaas_items', JSON.stringify(initialItems));
+            }
+        }
+
+        function getItemsData() {
+            return JSON.parse(localStorage.getItem('sinterklaas_items'));
+        }
+
+        function saveItemsData(data) {
+            localStorage.setItem('sinterklaas_items', JSON.stringify(data));
+        }
+
+        // Render Login Names
+        function renderLoginNames() {
+            const container = document.getElementById('name-buttons');
+            container.innerHTML = '';
+            names.forEach(name => {
+                const btn = document.createElement('button');
+                btn.className = "bg-red-900/80 hover:bg-red-800 border border-red-700/80 p-3.5 rounded-xl font-medium text-amber-200 hover:text-white transition flex items-center justify-center space-x-2 shadow-md";
+                btn.innerHTML = `<span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-xs font-bold">${name[0]}</span><span>${name}</span>`;
+                btn.onclick = () => selectNameForLogin(name);
+                container.appendChild(btn);
+            });
+        }
+
+        function selectNameForLogin(name) {
+            selectedNameForSms = name;
+            document.getElementById('sms-target-name').innerText = name;
+            document.getElementById('sms-section').classList.remove('hidden');
+            document.getElementById('sms-code-input').value = '';
+            document.getElementById('sms-code-input').focus();
+        }
+
+        function verifySmsCode() {
+            const code = document.getElementById('sms-code-input').value;
+            // Voor de beleving accepteren we '1234' of lege invoer
+            if (code === '1234' || code === '') {
+                loginUser(selectedNameForSms);
+            } else {
+                alertCustom('Onjuiste SMS-code! Gebruik 1234.');
+            }
+        }
+
+        // Custom modal alert ipv window.alert
+        function alertCustom(msg) {
+            alert(msg);
+        }
+
+        function loginUser(name) {
+            currentUser = name;
+            localStorage.setItem('sinterklaas_current_user', name);
+            
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('app-screen').classList.remove('hidden');
+            document.getElementById('user-status-container').classList.remove('hidden');
+            
+            document.getElementById('current-user-name').innerText = name;
+            document.getElementById('current-user-avatar').innerText = name[0];
+
+            renderMyItems();
+            renderOthersSelector();
+        }
+
+        function logout() {
+            localStorage.removeItem('sinterklaas_current_user');
+            currentUser = null;
+            document.getElementById('app-screen').classList.add('hidden');
+            document.getElementById('user-status-container').classList.add('hidden');
+            document.getElementById('login-screen').classList.remove('hidden');
+            document.getElementById('sms-section').classList.add('hidden');
+        }
+
+        // Tab switching
+        function switchTab(tab) {
+            const btnMy = document.getElementById('tab-my-list');
+            const btnOthers = document.getElementById('tab-others-list');
+            const contentMy = document.getElementById('content-my-list');
+            const contentOthers = document.getElementById('content-others-list');
+
+            if (tab === 'my-list') {
+                btnMy.className = "flex items-center space-x-2 px-5 py-2.5 rounded-xl font-medium text-sm transition bg-amber-500 text-red-950 shadow-lg";
+                btnOthers.className = "flex items-center space-x-2 px-5 py-2.5 rounded-xl font-medium text-sm transition bg-red-900/60 text-red-200 hover:bg-red-900 border border-red-800";
+                contentMy.classList.remove('hidden');
+                contentOthers.classList.add('hidden');
+                renderMyItems();
+            } else {
+                btnOthers.className = "flex items-center space-x-2 px-5 py-2.5 rounded-xl font-medium text-sm transition bg-amber-500 text-red-950 shadow-lg";
+                btnMy.className = "flex items-center space-x-2 px-5 py-2.5 rounded-xl font-medium text-sm transition bg-red-900/60 text-red-200 hover:bg-red-900 border border-red-800";
+                contentOthers.classList.remove('hidden');
+                contentMy.classList.add('hidden');
+                renderOthersSelector();
+            }
+        }
+
+        // RENDER MIJN ITEMS
+        function renderMyItems() {
+            const data = getItemsData();
+            const myItems = data[currentUser] || [];
+            const grid = document.getElementById('my-items-grid');
+            grid.innerHTML = '';
+
+            if (myItems.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-red-950/40 border border-red-900/60 rounded-2xl">
+                        <span class="text-4xl block mb-2">🎁</span>
+                        <p class="text-amber-200 font-medium">Je verlanglijst is nog leeg!</p>
+                        <p class="text-xs text-red-300 mt-1">Klik op 'Cadeau Toevoegen' om je eerste wens toe te voegen.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            myItems.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "gift-card bg-red-950/80 border border-red-900/80 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between";
+                
+                const imgSrc = item.image || 'https://placehold.co/400x300/7f1d1d/fde047?text=Cadeau';
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="h-48 w-full bg-red-900/40 relative overflow-hidden">
+                            <img src="${imgSrc}" alt="${item.title}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300/7f1d1d/fde047?text=Geen+Afbeelding'">
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-lg text-amber-300 mb-1">${escapeHtml(item.title)}</h3>
+                            <p class="text-xs text-gray-300 mb-4">${escapeHtml(item.desc || 'Geen beschrijving opgegeven.')}</p>
+                            ${item.link ? `<a href="${escapeHtml(item.link)}" target="_blank" class="inline-flex items-center space-x-1 text-xs font-semibold text-amber-400 hover:underline mb-3"><span>🔗 Bekijk webshop link</span></a>` : ''}
+                        </div>
+                    </div>
+                    <div class="px-5 pb-5 pt-0 flex justify-end">
+                        <button onclick="deleteMyItem('${item.id}')" class="bg-red-900/80 hover:bg-red-800 text-xs px-3 py-1.5 rounded-lg text-red-200 transition border border-red-700">Verwijderen</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openAddItemModal() {
+            document.getElementById('add-item-modal').classList.remove('hidden');
+            document.getElementById('add-item-form').reset();
+            document.getElementById('image-preview-container').classList.add('hidden');
+        }
+
+        function closeAddItemModal() {
+            document.getElementById('add-item-modal').classList.add('hidden');
+        }
+
+        function previewUrlImage() {
+            const link = document.getElementById('item-link').value;
+            const imgInput = document.getElementById('item-image');
+            const previewContainer = document.getElementById('image-preview-container');
+            const previewImg = document.getElementById('preview-img');
+
+            if (link.trim() !== '') {
+                // Simuleer ophalen foto of gebruik link als img url of placeholder
+                let imageUrl = link;
+                if (!link.match(/\.(jpeg|jpg|gif|png)$/i)) {
+                    // Als het geen directe afbeeldingslink is, genereren we een mooie preview op basis van de domeinnaam of titel
+                    try {
+                        const domain = new URL(link).hostname;
+                        imageUrl = `https://placehold.co/400x300/7f1d1d/fde047?text=${encodeURIComponent(domain)}`;
+                    } catch(e) {
+                        imageUrl = 'https://placehold.co/400x300/7f1d1d/fde047?text=Webshop+Link';
+                    }
+                }
+                imgInput.value = imageUrl;
+                previewImg.src = imageUrl;
+                previewContainer.classList.remove('hidden');
+            } else {
+                previewContainer.classList.add('hidden');
+            }
+        }
+
+        function handleAddItem(e) {
+            e.preventDefault();
+            const title = document.getElementById('item-title').value;
+            const desc = document.getElementById('item-desc').value;
+            const link = document.getElementById('item-link').value;
+            const image = document.getElementById('item-image').value || (link ? 'https://placehold.co/400x300/7f1d1d/fde047?text=Cadeau' : '');
+
+            const data = getItemsData();
+            if (!data[currentUser]) data[currentUser] = [];
+
+            const newItem = {
+                id: 'item_' + Math.random().toString(36).substr(2, 9),
+                title,
+                desc,
+                link,
+                image,
+                notes: []
+            };
+
+            data[currentUser].push(newItem);
+            saveItemsData(data);
+            closeAddItemModal();
+            renderMyItems();
+        }
+
+        function deleteMyItem(id) {
+            if (!confirm('Weet je zeker dat je dit item wilt verwijderen?')) return;
+            const data = getItemsData();
+            data[currentUser] = data[currentUser].filter(item => item.id !== id);
+            saveItemsData(data);
+            renderMyItems();
+        }
+
+        // RENDER OTHERS SELECTOR
+        function renderOthersSelector() {
+            const selector = document.getElementById('others-selector');
+            selector.innerHTML = '';
+
+            names.forEach(name => {
+                if (name === currentUser) return; // Niet je eigen lijst hier bekijken
+                const btn = document.createElement('button');
+                const isSelected = selectedPersonToView === name;
+                btn.className = isSelected 
+                    ? "bg-amber-500 text-red-950 font-bold px-4 py-2.5 rounded-xl text-sm transition shadow-lg flex items-center space-x-2"
+                    : "bg-red-900/60 hover:bg-red-900 border border-red-800 text-red-200 px-4 py-2.5 rounded-xl text-sm transition flex items-center space-x-2";
+                
+                btn.innerHTML = `<span>🎁</span><span>Verlanglijst van ${name}</span>`;
+                btn.onclick = () => selectPersonToView(name);
+                selector.appendChild(btn);
+            });
+
+            if (selectedPersonToView) {
+                renderOtherPersonItems(selectedPersonToView);
+            }
+        }
+
+        function selectPersonToView(name) {
+            selectedPersonToView = name;
+            renderOthersSelector();
+        }
+
+        function renderOtherPersonItems(name) {
+            const container = document.getElementById('other-person-container');
+            container.classList.remove('hidden');
+            document.getElementById('viewing-person-name').innerText = name;
+
+            const data = getItemsData();
+            const items = data[name] || [];
+            const grid = document.getElementById('other-items-grid');
+            grid.innerHTML = '';
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 bg-red-950/40 border border-red-900/60 rounded-2xl">
+                        <span class="text-4xl block mb-2">📭</span>
+                        <p class="text-amber-200 font-medium">${name} heeft nog geen cadeautjes op de lijst gezet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "gift-card bg-red-950/80 border border-red-900/80 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between";
+                
+                const imgSrc = item.image || 'https://placehold.co/400x300/7f1d1d/fde047?text=Cadeau';
+                
+                // CRUCIALE REGEL: Filter de notities zodat de eigenaar (indien hij/zij hier zou kijken, maar dit is andermans lijst)
+                // en nog belangrijker: de notities die door jou of anderen zijn geplaatst worden getoond, 
+                // MAAR als jij de eigenaar bent van de lijst die je op tab 1 bekijkt zie je geen notities. 
+                // Op tab 2 bekijk je ANDERMANS lijst, dus hier zie je wel notities. 
+                // Om ervoor te zorgen dat je je EIGEN notities op je EIGEN lijst niet ziet: 
+                // we tonen alle notities voor deze persoon, BEHALVE notities op je eigen lijst (wat hier logisch is want je bekijkt andermans lijst).
+                // Echter, als jij notities hebt gezet op iemands anders lijst, mag je die wel zien. 
+                // Sterker nog, de regel luidt: "De notities op je eigen lijst kun je niet zien." 
+                // Dat betekent: als jij Freek bent, en je kijkt op je eigen lijst (Tab 1), zie je geen notities. 
+                // Als je op andermans lijst kijkt (Tab 2), zie je de notities die daarstaan.
+                
+                let notesHtml = '';
+                if (item.notes && item.notes.length > 0) {
+                    notesHtml = `<div class="mt-4 pt-3 border-t border-red-900 space-y-2"><p class="text-xs font-semibold text-amber-300">Geheime Notities:</p>`;
+                    item.notes.forEach(note => {
+                        notesHtml += `
+                            <div class="bg-red-900/40 border border-red-800/60 rounded-xl p-2.5 text-xs flex justify-between items-start">
+                                <div>
+                                    <strong class="text-amber-400 block mb-0.5">${escapeHtml(note.author)}:</strong>
+                                    <span class="text-gray-200">${escapeHtml(note.text)}</span>
+                                </div>
+                                ${note.author === currentUser ? `<button onclick="deleteNote('${name}', '${item.id}', '${note.id}')" class="text-red-400 hover:text-red-200 ml-2">✕</button>` : ''}
+                            </div>
+                        `;
+                    });
+                    notesHtml += `</div>`;
+                } else {
+                    notesHtml = `<div class="mt-4 pt-3 border-t border-red-900"><p class="text-xs text-red-300 italic">Nog geen geheime notities.</p></div>`;
+                }
+
+                card.innerHTML = `
+                    <div>
+                        <div class="h-48 w-full bg-red-900/40 relative overflow-hidden">
+                            <img src="${imgSrc}" alt="${item.title}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300/7f1d1d/fde047?text=Geen+Afbeelding'">
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-lg text-amber-300 mb-1">${escapeHtml(item.title)}</h3>
+                            <p class="text-xs text-gray-300 mb-3">${escapeHtml(item.desc || 'Geen beschrijving opgegeven.')}</p>
+                            ${item.link ? `<a href="${escapeHtml(item.link)}" target="_blank" class="inline-flex items-center space-x-1 text-xs font-semibold text-amber-400 hover:underline mb-3"><span>🔗 Bekijk webshop link</span></a>` : ''}
+                            
+                            ${notesHtml}
+                        </div>
+                    </div>
+                    <div class="px-5 pb-5 pt-0 flex justify-end">
+                        <button onclick="openAddNoteModal('${name}', '${item.id}', '${escapeHtml(item.title)}')" class="bg-amber-500 hover:bg-amber-400 text-xs font-bold px-3.5 py-2 rounded-xl text-red-950 transition shadow">＋ Notitie Toevoegen</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // NOTITIES LOGICA
+        function openAddNoteModal(ownerName, itemId, itemTitle) {
+            document.getElementById('add-note-modal').classList.remove('hidden');
+            document.getElementById('note-item-owner').value = ownerName;
+            document.getElementById('note-item-id').value = itemId;
+            document.getElementById('note-text').value = '';
+            document.getElementById('note-modal-subtitle').innerText = `Notitie toevoegen bij "${itemTitle}" van ${ownerName}`;
+        }
+
+        function closeAddNoteModal() {
+            document.getElementById('add-note-modal').classList.add('hidden');
+        }
+
+        function handleSaveNote(e) {
+            e.preventDefault();
+            const owner = document.getElementById('note-item-owner').value;
+            const itemId = document.getElementById('note-item-id').value;
+            const text = document.getElementById('note-text').value;
+
+            const data = getItemsData();
+            const items = data[owner] || [];
+            const item = items.find(i => i.id === itemId);
+
+            if (item) {
+                if (!item.notes) item.notes = [];
+                item.notes.push({
+                    id: 'note_' + Math.random().toString(36).substr(2, 9),
+                    author: currentUser,
+                    text: text
+                });
+                saveItemsData(data);
+                closeAddNoteModal();
+                renderOtherPersonItems(owner);
+            }
+        }
+
+        function deleteNote(ownerName, itemId, noteId) {
+            const data = getItemsData();
+            const items = data[ownerName] || [];
+            const item = items.find(i => i.id === itemId);
+            if (item && item.notes) {
+                item.notes = item.notes.filter(n => n.id !== noteId);
+                saveItemsData(data);
+                renderOtherPersonItems(ownerName);
+            }
+        }
+
+        // Helper escape html
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+
+        // Startup
+        window.onload = function() {
+            initStorage();
+            renderLoginNames();
+
+            // Check of er al iemand ingelogd was in localStorage
+            const savedUser = localStorage.getItem('sinterklaas_current_user');
+            if (savedUser && names.includes(savedUser)) {
+                loginUser(savedUser);
+            }
+        };
+    </script>
+</body>
+</html>
+```
